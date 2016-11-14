@@ -1,5 +1,6 @@
 // My SocketStream 0.4 app
 
+var http = require('http');
 var ss = require('socketstream');
 
 // Define a single-page client called 'main'
@@ -21,5 +22,8 @@ ss.client.templateEngine.use(require('ss-hogan'));
 // Minimize and pack assets if you type: SS_ENV=production node app.js
 if (ss.env === 'production') ss.client.packAssets();
 
+var server = http.Server(ss.http.middleware);
+server.listen(3000);
+
 // Start SocketStream
-ss.start();
+ss.start(server);
